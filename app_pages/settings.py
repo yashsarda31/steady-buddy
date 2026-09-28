@@ -30,7 +30,11 @@ with st.form("profile_preferences"):
             saved("Preferences saved. We'll take this at your pace.")
 
 st.subheader("Your data belongs to you")
-st.caption("Saved in a private SQLite file on the computer or server running this app. Refreshes and restarts keep your diary. There is no analytics service or AI upload.")
+if st.session_state.get("cloud_hosting"):
+    st.info("This browser has its own diary and an automatic recovery copy. Streamlit Cloud can reset server files; reopen in the same browser to recover your diary. Download a backup before clearing site data or switching devices.")
+    st.caption("Your browser's diary key is private access to your records, not an account login. Use your own device. Different browsers and installed apps may have separate storage; transfer your diary with a JSON backup.")
+else:
+    st.caption("Saved in a private SQLite file on the computer or server running this app. Refreshes and restarts keep your diary. There is no analytics service or AI upload.")
 st.download_button("Download full backup", data=store.export(), file_name=f"steady-buddy-{today}.json",
                    mime="application/json", icon=":material/download:")
 with st.expander("Download spreadsheet-friendly history"):
@@ -53,7 +57,7 @@ with st.expander("Restore a backup"):
         else:
             # Clear widget values so restored settings, not old form state, are shown.
             for key in list(st.session_state):
-                if key not in ("store", "today", "profile"):
+                if key not in ("store", "today", "profile", "cloud_hosting", "browser_diary", "_browser_identity"):
                     del st.session_state[key]
             saved("Backup restored. Your previous diary has a safety copy on this server.")
 

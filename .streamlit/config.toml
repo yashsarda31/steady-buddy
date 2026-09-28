@@ -1,5 +1,6 @@
 [server]
 headless = true
+enableStaticServing = true
 enableXsrfProtection = true
 enableCORS = true
 maxUploadSize = 10

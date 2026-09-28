@@ -1,6 +1,6 @@
 # Steady Buddy
 
-A kind personal companion for calorie awareness, movement, patience, and alcohol-free days. Built with Streamlit, with a proper installable PWA shell. No AI key, nutrition subscription, or tracking analytics.
+A kind personal companion for calorie awareness, movement, patience, and alcohol-free days. Built with Streamlit, with installation controls for Community Cloud and an optional PWA gateway. No AI key, nutrition subscription, or tracking analytics.
 
 ![Steady Buddy on a phone-sized screen](docs/screenshots/home-phone.png)
 
@@ -33,6 +33,20 @@ Missed alcohol check-ins never count as alcohol-free days. A lapse does not eras
 
 ## Phone installation
 
+### Streamlit Community Cloud
+
+Open **https://steady-buddy.streamlit.app/**. The **Install app** button appears beneath the app title on every page. In supporting browsers it opens the browser's installation prompt; otherwise it shows instructions for your device. On iPhone/iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation still needs your confirmation in the browser.
+
+Deploy the GitHub repository's **main** branch with **app.py** as the entry point. The checked-in `.streamlit/config.toml` enables static serving for `static/manifest.json` and the bundled icons. Updates pushed to that branch are picked up by Community Cloud. No extra gateway, API key or external PWA host is needed.
+
+Cloud diaries are separate for each browser, using a random private browser key. The app keeps a server-side SQLite diary and automatically saves a recovery copy in that browser. If Cloud resets its files, opening the app again in the same browser restores that copy. Clearing site storage removes the key and recovery copy; private browsing may remove them when it closes. Download a full JSON backup in Settings before clearing data or changing devices. Installing may use a separate storage area on some devices; use backup/restore to transfer records if necessary.
+
+This is browser-based access, not an account login or automatic device sync. Someone using the same browser profile can open the same diary. For a personal shared-device deployment, use Community Cloud's app access settings or the password-protected gateway below. Server files are temporary, so a browser copy and downloaded backups remain essential. The old shared database from an earlier Cloud version is left untouched; import a previously downloaded JSON backup into the new browser diary to carry records over.
+
+The Cloud installation needs an internet connection and a running app. It does not support offline diary writes, background notifications, or the gateway's offline screen. The manifest is attached to the outer Community Cloud page as well as direct Streamlit launches, so installation identifies Steady Buddy rather than the hosting platform.
+
+### Local / container gateway
+
 The app includes its web manifest, 192/512px icons, a maskable icon, service worker and an offline screen. Use the **main app address**, not the `/streamlit/` iframe address, to install it.
 
 **A phone needs an HTTPS address to install this PWA.** The current app is running locally on your computer, not hosted publicly. `http://localhost` is installable on the computer itself; `http://192.168...` over ordinary Wi-Fi does not meet phone secure-context requirements.
@@ -47,7 +61,7 @@ Tracking requires a connection to the running server. The service worker caches 
 
 ## Private HTTPS hosting
 
-Use a Python/container host with persistent disk and WebSocket support. Streamlit Community Cloud alone does not serve this PWA gateway; deploy the included launcher/container. Keep **one server worker and one instance** for the personal diary.
+Use a Python/container host with persistent disk and WebSocket support for the password-protected gateway and offline fallback. Community Cloud uses the direct Streamlit installation described above. Keep **one server worker and one instance** for the gateway's personal diary.
 
 The container is supplied but has not been deployed. Set `BUDDY_ACCESS_PASSWORD` to a unique password of at least 12 characters, then:
 
@@ -91,4 +105,6 @@ $env:BUDDY_DB_PATH = "$PWD\output\browser-test.db"
 .venv\Scripts\python.exe scripts\browser_check.py --url http://localhost:8766
 ```
 
-Evidence and screenshots are saved in `output/`. Use `scripts/make_icons.py` only to regenerate the bundled icons. Nothing has been deployed, uploaded or connected to a nutrition/AI provider.
+To verify the Community Cloud behavior locally, launch Streamlit with `BUDDY_HOSTING=cloud`, `BUDDY_DB_PATH=output/cloud-test/buddy.db`, and run `scripts/browser_check.py --url http://localhost:8501 --direct`. This check preserves and renames only the disposable test diaries under `output/cloud-test/` to simulate a Cloud disk reset, then checks automatic recovery. Never point this test at your real diary or the live app.
+
+Evidence and screenshots are saved in `output/`. Use `scripts/make_icons.py` only to regenerate the bundled icons, then copy them into `static/icons/` for the Cloud installation. No nutrition/AI provider is connected.

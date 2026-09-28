@@ -1,5 +1,6 @@
 from pathlib import Path
 import sys
+from types import SimpleNamespace
 
 import pytest
 from streamlit.testing.v1 import AppTest
@@ -14,6 +15,7 @@ def app(tmp_path, monkeypatch):
     monkeypatch.setenv("BUDDY_DB_PATH", str(tmp_path / "buddy.db"))
     # AppTest makes a fresh runtime for each instance; CCv2 registration belongs to that runtime.
     sys.modules.pop("buddy.timer", None)
+    sys.modules.pop("buddy.browser", None)
     return AppTest.from_file(str(ROOT / "app.py"), default_timeout=30).run()
 
 
@@ -76,3 +78,25 @@ def test_optional_calorie_reference_and_name(app):
     assert app.session_state["store"].profile()["calorie_target"] == 2200
     app.switch_page("app_pages/today.py").run()
     assert any("Sam" in row.value for row in app.header)
+
+
+def test_cloud_bootstrap_keeps_routes_available(app, monkeypatch):
+    monkeypatch.setenv("BUDDY_HOSTING", "cloud")
+    monkeypatch.setattr("buddy.browser.install_controls", lambda cloud: SimpleNamespace(identity=None))
+    app.run()
+    assert not app.exception
+    assert any("Opening your personal diary" in row.value for row in app.info)
+    app.switch_page("app_pages/buddy.py").run()
+    assert not app.exception
+
+
+def test_cloud_never_exposes_the_legacy_shared_diary(app, monkeypatch):
+    legacy = app.session_state["store"]
+    legacy.add_food(app.session_state["today"].isoformat(), "Legacy meal", 180, 1, "Lunch")
+    monkeypatch.setenv("BUDDY_HOSTING", "cloud")
+    monkeypatch.setattr("buddy.browser.install_controls", lambda cloud: SimpleNamespace(identity={"token": "c" * 64}))
+    monkeypatch.setattr("buddy.browser.save_browser_backup", lambda store, token: None)
+    app.run()
+    assert not app.exception
+    assert not app.session_state["store"].rows("foods")
+    assert legacy.rows("foods")[0]["name"] == "Legacy meal"
