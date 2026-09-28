@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#27634D">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Your kind companion for food awareness, movement and alcohol-free days.">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+  <link rel="icon" href="/icons/icon-192.png">
+  <link rel="stylesheet" href="/web.css">
+  <title>Steady Buddy</title>
+</head>
+<body class="app-shell">
+  <header class="appbar">
+    <a class="brand" href="/"><img src="/icons/icon-192.png" width="28" height="28" alt="">Steady Buddy</a>
+    <div class="actions"><button id="lock" hidden>Lock</button><button id="install">Install</button></div>
+  </header>
+  <p class="connection" id="connection" role="status" hidden>Connection paused. Reconnect to save your diary.</p>
+  <main class="app-main"><iframe id="buddy-frame" src="/streamlit/?embed=true" title="Steady Buddy personal diary" allow="clipboard-write"></iframe></main>
+  <dialog id="install-help" aria-labelledby="install-title">
+    <h2 id="install-title">Keep your buddy close.</h2>
+    <p id="install-status"></p>
+    <p><strong>iPhone:</strong> Share → Add to Home Screen.</p>
+    <p><strong>Android:</strong> Open the browser menu → Install app or Add to Home Screen.</p>
+    <p>Your diary needs a connection to its running server. If you're offline, you'll see a gentle reminder to reconnect.</p>
+    <button id="close-help">Got it</button>
+  </dialog>
+  <script src="/web.js" defer></script>
+</body>
+</html>

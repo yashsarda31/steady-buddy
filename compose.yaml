@@ -1,0 +1,14 @@
+services:
+  buddy:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8765:8765"
+    environment:
+      BUDDY_ACCESS_PASSWORD: ${BUDDY_ACCESS_PASSWORD:?Set a private access password of at least 12 characters}
+      BUDDY_DB_PATH: /app/data/buddy.db
+      FORWARDED_ALLOW_IPS: ${FORWARDED_ALLOW_IPS:-127.0.0.1}
+    volumes:
+      - buddy-data:/app/data
+volumes:
+  buddy-data:

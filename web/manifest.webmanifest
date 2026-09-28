@@ -1,0 +1,18 @@
+{
+  "id": "/",
+  "name": "Steady Buddy",
+  "short_name": "Steady Buddy",
+  "description": "A kind companion for calorie awareness, movement, patience and alcohol-free days.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F2",
+  "theme_color": "#27634D",
+  "lang": "en",
+  "prefer_related_applications": false,
+  "icons": [
+    {"src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "/icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ]
+}
