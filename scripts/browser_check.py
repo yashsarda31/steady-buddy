@@ -193,7 +193,7 @@ def check(base, direct=False):
         report["installability_errors"] = cdp.send("Page.getInstallabilityErrors")["installabilityErrors"]
         assert not report["installability_errors"], report["installability_errors"]
         report["checks"].append("Installation help, manifest and active root-scope service worker")
-        cached = page.evaluate("async () => { const c = await caches.open('steady-public-v1'); return (await c.keys()).map(r => new URL(r.url).pathname); }")
+        cached = page.evaluate("async () => { const c = await caches.open('steady-public-v2'); return (await c.keys()).map(r => new URL(r.url).pathname); }")
         assert all(not path.startswith('/streamlit') for path in cached)
         context.set_offline(True)
         page.goto(base, wait_until="domcontentloaded")

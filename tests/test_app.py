@@ -16,6 +16,7 @@ def app(tmp_path, monkeypatch):
     # AppTest makes a fresh runtime for each instance; CCv2 registration belongs to that runtime.
     sys.modules.pop("buddy.timer", None)
     sys.modules.pop("buddy.browser", None)
+    sys.modules.pop("buddy.scene", None)
     return AppTest.from_file(str(ROOT / "app.py"), default_timeout=30).run()
 
 

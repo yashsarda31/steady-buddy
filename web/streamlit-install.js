@@ -21,7 +21,7 @@ export default function ({parentElement, data, setStateValue}) {
       if (!icon) { icon = host.document.createElement('link'); icon.rel = rel; host.document.head.append(icon); }
       icon.href = new URL('icons/' + file, base).href;
     }
-    for (const [name, content] of [['theme-color', '#27634D'], ['apple-mobile-web-app-capable', 'yes']]) {
+    for (const [name, content] of [['theme-color', '#284C38'], ['apple-mobile-web-app-capable', 'yes']]) {
       let meta = host.document.querySelector(`meta[name="${name}"]`);
       if (!meta) { meta = host.document.createElement('meta'); meta.name = name; host.document.head.append(meta); }
       meta.content = content;

@@ -2,6 +2,8 @@
 
 A kind personal companion for calorie awareness, movement, patience, and alcohol-free days. Built with Streamlit, with installation controls for Community Cloud and an optional PWA gateway. No AI key, nutrition subscription, or tracking analytics.
 
+The redesigned interface uses warm ivory, sage and apricot cards, locally served DM Sans and Fraunces fonts, a Three.js pebble garden, and gentle GSAP page transitions. It adapts to phones and desktops, respects reduced-motion preferences, and shows a static illustration if WebGL or visual assets are unavailable. Decorative rendering pauses outside the viewport and releases its resources when you leave the screen.
+
 ![Steady Buddy on a phone-sized screen](docs/screenshots/home-phone.png)
 
 ## Open the app
@@ -35,7 +37,7 @@ Missed alcohol check-ins never count as alcohol-free days. A lapse does not eras
 
 ### Streamlit Community Cloud
 
-Open **https://steady-buddy.streamlit.app/**. The **Install app** button appears beneath the app title on every page. In supporting browsers it opens the browser's installation prompt; otherwise it shows instructions for your device. On iPhone/iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation still needs your confirmation in the browser.
+Open **https://steady-buddy.streamlit.app/**. The **Install app** button appears in the top-right corner of every page. In supporting browsers it opens the browser's installation prompt; otherwise it shows instructions for your device. On iPhone/iPad, open the site in Safari and use **Share → Add to Home Screen**. Installation still needs your confirmation in the browser.
 
 Deploy the GitHub repository's **main** branch with **app.py** as the entry point. The checked-in `.streamlit/config.toml` enables static serving for `static/manifest.json` and the bundled icons. Updates pushed to that branch are picked up by Community Cloud. No extra gateway, API key or external PWA host is needed.
 
@@ -108,3 +110,17 @@ $env:BUDDY_DB_PATH = "$PWD\output\browser-test.db"
 To verify the Community Cloud behavior locally, launch Streamlit with `BUDDY_HOSTING=cloud`, `BUDDY_DB_PATH=output/cloud-test/buddy.db`, and run `scripts/browser_check.py --url http://localhost:8501 --direct`. This check preserves and renames only the disposable test diaries under `output/cloud-test/` to simulate a Cloud disk reset, then checks automatic recovery. Never point this test at your real diary or the live app.
 
 Evidence and screenshots are saved in `output/`. Use `scripts/make_icons.py` only to regenerate the bundled icons, then copy them into `static/icons/` for the Cloud installation. No nutrition/AI provider is connected.
+
+### Redesign checks
+
+With the isolated Cloud preview above running on port 8501:
+
+```powershell
+rtk proxy npm pack axe-core@4.13.0 --pack-destination output --silent
+rtk proxy .venv\Scripts\python.exe scripts\redesign_check.py
+rtk proxy .venv\Scripts\python.exe scripts\cloud_frame_check.py
+```
+
+The redesign check covers all six routes at 320, 390, 768 and 1440 pixels, automated accessibility scans at phone and desktop sizes, keyboard navigation and date selection, reduced motion, missing WebGL/assets, and actual WebGL/GSAP cleanup on repeated page changes. Automated scans do not substitute for a screen-reader or physical-device test.
+
+Public visual assets are pinned to Three.js 0.186.1, GSAP 3.15.0, and Fontsource fonts 5.3.0. Their source notices are included in `static/vendor/` and `static/fonts/`. `scripts/vendor_assets.py` documents how to reproduce these assets from npm archives; Node is not needed to run or deploy the app.

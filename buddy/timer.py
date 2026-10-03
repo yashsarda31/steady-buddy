@@ -5,16 +5,21 @@ from streamlit.components.v2 import component
 _timer = component(
     "steady_pause_timer",
     html="""
-    <div><p role="timer" aria-label="Pause time remaining" id="clock">2:00</p>
+    <div class="pause"><p class="pause-label">A LITTLE SPACE TO BREATHE</p><p role="timer" aria-label="Pause time remaining" id="clock">2:00</p>
     <button type="button" id="start">Start a two-minute pause</button>
     <button type="button" id="reset">Reset</button>
     <p aria-live="polite" id="message">Relax your shoulders. Take a slow breath.</p></div>
     """,
     css="""
-    button {font: inherit; color: var(--st-text-color); background: var(--st-secondary-background-color);
-    border: 1px solid var(--st-border-color); border-radius: 20px; padding: 12px 18px; margin: 0 8px 8px 0; cursor: pointer;}
+    .pause {text-align:center; padding:10px 0;}
+    .pause-label {font:600 9px 'DM Sans',sans-serif; letter-spacing:.16em; color:#586b52;}
+    button {font: 600 12px 'DM Sans',sans-serif; color: #fffefa; background: #284c38;
+    border: 1px solid #284c38; border-radius: 30px; padding: 12px 18px; margin: 0 5px 8px 0; min-height:44px; cursor: pointer;}
+    #reset {color:#284c38; background:transparent; border-color:#c2cbb8;}
+    button:disabled {opacity:.65; cursor:default;}
     button:focus-visible {outline: 3px solid var(--st-primary-color); outline-offset: 2px;}
-    #clock {font-size: 2.4rem; margin: 8px 0; font-variant-numeric: tabular-nums;}
+    #clock {font:500 64px 'Fraunces',Georgia,serif; color:#2b4834; margin:12px 0 20px; font-variant-numeric:tabular-nums;}
+    #message {font:12px/1.7 'DM Sans',sans-serif; color:#566a53; margin-top:14px;}
     """,
     js="""
     export default function ({parentElement}) {

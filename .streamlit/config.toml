@@ -15,16 +15,27 @@ showErrorDetails = "none"
 
 [theme]
 base = "light"
-primaryColor = "#27634D"
-backgroundColor = "#FAF8F2"
-secondaryBackgroundColor = "#ECEEE4"
-textColor = "#20382E"
-borderColor = "#CCD4C8"
-font = "sans-serif"
-headingFont = "serif"
+primaryColor = "#284C38"
+backgroundColor = "#F7F7F0"
+secondaryBackgroundColor = "#EEF1E7"
+textColor = "#243C32"
+borderColor = "#DCE2D7"
+font = "DM Sans"
+headingFont = "Fraunces"
 baseFontSize = 16
-baseRadius = "large"
+baseRadius = "14px"
 buttonRadius = "full"
 showWidgetBorder = true
-headingFontSizes = ["36px", "28px", "22px", "20px", "18px", "16px"]
-chartCategoricalColors = ["#27634D", "#987547", "#61768A", "#8B627C"]
+headingFontSizes = ["44px", "38px", "27px", "22px", "18px", "16px"]
+headingFontWeights = [500, 500, 500, 500, 500, 500]
+chartCategoricalColors = ["#315C40", "#AD643D", "#768967", "#847560"]
+
+[[theme.fontFaces]]
+family = "DM Sans"
+url = "app/static/fonts/dm-sans.woff2"
+weight = "100 1000"
+
+[[theme.fontFaces]]
+family = "Fraunces"
+url = "app/static/fonts/fraunces.woff2"
+weight = "100 900"

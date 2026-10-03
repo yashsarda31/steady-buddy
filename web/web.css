@@ -1,4 +1,4 @@
-:root { color-scheme: light; --ink: #20382e; --green: #27634d; --cream: #faf8f2; }
+:root { color-scheme: light; --ink: #243c32; --green: #284c38; --cream: #f7f7f0; }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); background: var(--cream); font: 16px/1.6 system-ui, sans-serif; }
 button, input { font: inherit; }
@@ -8,8 +8,8 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid 
 button:disabled { opacity: .65; cursor: default; }
 [hidden] { display: none !important; }
 .app-shell { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
-.appbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: max(6px, env(safe-area-inset-top)) 16px 6px; border-bottom: 1px solid #ccd4c8; }
-.brand { color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 650; white-space: nowrap; }
+.appbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: max(8px, env(safe-area-inset-top)) 20px 8px; border-bottom: 1px solid #dce2d7; background:#eef2e7; }
+.brand { color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 650; letter-spacing:-.035em; white-space: nowrap; }
 .brand img { border-radius: 8px; }
 .actions { display: flex; gap: 6px; }
 .actions button { padding: 6px 12px; font-size: 14px; }

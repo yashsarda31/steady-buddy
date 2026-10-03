@@ -1,0 +1,11 @@
+.garden { position:relative; width:100%; height:296px; min-width:0; overflow:hidden; font-family:"DM Sans",sans-serif; }
+.garden-stage { width:100%; height:272px; position:relative; }
+.garden-stage canvas { position:absolute; inset:0; display:block; width:100%; height:100%; }
+.garden-fallback { width:100%; height:100%; display:block; }
+.garden[data-garden="webgl"] .garden-fallback { display:none; }
+.garden-orbit { position:absolute; width:235px; height:235px; top:12px; left:50%; margin-left:-117px; border:1px solid #cad6ba; border-radius:50%; }
+.garden-orbit::after { content:""; position:absolute; width:270px; height:270px; top:-18px; left:-18px; border:1px dashed #d3dec6; border-radius:50%; }
+.garden-label { position:absolute; bottom:0; left:0; width:100%; display:flex; align-items:center; justify-content:center; gap:8px; color:#526848; font-size:9px; letter-spacing:.05em; }
+.garden-line { width:18px; height:1px; background:#7d9365; }
+@media(max-width:640px) { .garden { height:245px; } .garden-stage { height:225px; } .garden-orbit { width:195px; height:195px; margin-left:-97px; top:3px; } .garden-orbit::after { width:225px; height:225px; top:-16px; left:-16px; } }
+@media(max-width:640px) { .garden { height:157px; } .garden-stage { height:157px; } .garden-orbit { width:125px; height:125px; margin-left:-62px; top:16px; } .garden-orbit::after { width:145px; height:145px; top:-11px; left:-11px; } .garden-label { display:none; } }

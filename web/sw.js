@@ -1,4 +1,4 @@
-const CACHE = 'steady-public-v1';
+const CACHE = 'steady-public-v2';
 const ASSETS = ['/offline.html', '/web.css', '/icons/icon-192.png', '/icons/icon-512.png', '/icons/apple-touch-icon.png', '/manifest.webmanifest'];
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(ASSETS)).then(() => self.skipWaiting()));
