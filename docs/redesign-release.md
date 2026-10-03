@@ -10,7 +10,7 @@ The existing diary schema, browser identity, recovery format, health semantics, 
 - Direct Cloud-mode browser check: 11 functional groups and 24 screen-size checks passed, including diary isolation, recovery after a simulated server reset, backup/restore, installation, and the pause timer.
 - Local gateway browser check: 9 functional groups and 24 screen-size checks passed, including reconnect and the offline fallback without private diary caching.
 - Cloud iframe check: outer-page installation metadata, icons, Chromium installability, and fresh direct-route startup passed.
-- Redesign browser check: 9 groups and 24 screen-size checks passed, with zero violations in 12 automated accessibility scans and zero page errors. Includes keyboard navigation/calendar, changing reduced-motion preferences, missing WebGL and visual assets, offscreen animation suspension, and WebGL/GSAP cleanup on four consecutive page departures.
+- Redesign browser check: 10 groups and 24 screen-size checks passed, with zero violations in 12 automated accessibility scans and zero page errors. Includes keyboard navigation/calendar, mobile installation without a hosting-toolbar overlap, changing reduced-motion preferences, missing WebGL and visual assets, offscreen animation suspension, and WebGL/GSAP cleanup on four consecutive page departures.
 - Actual phone and desktop screenshots were inspected for Today, Food, Move, Buddy, Progress and Settings. These are browser viewport checks, not physical-device installation or screen-reader certification.
 
 Detailed local reports remain in the ignored `output/` folder. Test diary records and browser identities are not included in the repository.

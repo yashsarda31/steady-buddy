@@ -2,7 +2,7 @@
 :root { --buddy-ink:#243c32; --buddy-muted:#586b60; --buddy-paper:#f7f7f0; --buddy-line:#dce2d7; }
 [data-testid="stAppViewContainer"] { background: #f7f7f0; }
 [data-testid="stMainBlockContainer"] { max-width: 1184px; padding: 2.25rem 2.5rem 2rem; }
-[data-testid="stHeader"] { background: transparent; }
+[data-testid="stHeader"] { display:none!important; }
 [data-testid="stMain"] h2 { letter-spacing: -.035em; line-height: 1.14; font-weight: 500; }
 [data-testid="stMain"] h3 { letter-spacing: -.025em; font-weight: 500; }
 [data-testid="stCaptionContainer"] { color:var(--buddy-muted); line-height:1.6; opacity:1!important; }

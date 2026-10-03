@@ -56,8 +56,11 @@ def check(url):
                       "fonts/dm-sans.woff2","fonts/fraunces.woff2","icons/buddy-mark.svg"):
             response = context.request.get(urljoin(base,asset))
             assert response.ok, (asset,response.status)
-            live_hash = hashlib.sha256(response.body()).hexdigest()
-            assert live_hash == hashlib.sha256((ROOT / "static" / asset).read_bytes()).hexdigest(), asset
+            actual, expected = response.body(), (ROOT / "static" / asset).read_bytes()
+            # Git normalizes text on checkout; Windows SVG files can use CRLF.
+            if asset.endswith((".js", ".svg")):
+                actual, expected = actual.replace(b"\r\n",b"\n"), expected.replace(b"\r\n",b"\n")
+            assert hashlib.sha256(actual).digest() == hashlib.sha256(expected).digest(), asset
             report["assets"].append({"asset":asset,"status":response.status,"matches_release":True})
         print("Live Three.js, GSAP, fonts and asset fingerprints verified",flush=True)
         for width in (1440,390):

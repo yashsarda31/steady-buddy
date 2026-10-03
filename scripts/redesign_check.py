@@ -84,6 +84,12 @@ def check(base):
                     report["accessibility"].append({"width":width,"route":route or "today","violations":violations})
                     page.screenshot(path=OUT / f"redesign-{route or 'today'}-{width}.png", full_page=True)
         report["checks"].append("All six routes: layouts at four widths, automated accessibility at two widths")
+        page.set_viewport_size({"width":390,"height":1050})
+        page.evaluate("if (window.__steadyInstall) window.__steadyInstall.prompt=null")
+        page.get_by_role("button",name="Install app",exact=True).click()
+        expect(page.get_by_role("region",name="Installation instructions")).to_be_visible()
+        page.get_by_role("button",name="Got it",exact=True).click()
+        report["checks"].append("Mobile install help is clickable and closes without a toolbar overlap")
         for label, options, init_script in [
             ("Reduced motion", {"reduced_motion":"reduce"}, None),
             ("WebGL unavailable", {}, """const original = HTMLCanvasElement.prototype.getContext;
